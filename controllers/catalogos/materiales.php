@@ -36,12 +36,14 @@ Class Materiales extends CI_controller{
                 $crud->set_table('material');
                 $crud->set_subject('Material');
                 $crud->set_rules('nombre', 'Nombre', 'required');
-                $crud->unset_delete();
+                //$crud->unset_delete();
                 //$crud->set_rules('cantidad', 'Cantidad', 'required|numeric');
                 $crud->set_rules('unidad_de_medida', 'Unidad de medida', 'required');
                 $crud->set_rules('contenido_por_unidad', 'Contenido por unidad', 'integer');
-                //$crud->set_rules('minimo_stock', 'Minimo stock', 'required|numeric');
-                $crud->unset_columns('responsable');
+                $crud->set_rules('minimo_stock', 'Minimo stock', 'required|numeric');
+                $crud->display_as('unidad_de_medida','Presentacion');
+                $crud->display_as('contenido_por_unidad','Con');
+                $crud->unset_columns('responsable','en_uso','cantidad');
                 $crud->field_type('cantidad', 'hidden', 0);
                 $crud->field_type('total_stock','hidden', 0);
                 $crud->field_type('responsable', 'hidden', $this->noPersonal);
@@ -55,7 +57,7 @@ Class Materiales extends CI_controller{
 
                 $output = $crud->render();
                 $this->load->model('inventario_model');
-                $output->stock = $this->inventario_model->consulta_stock($this->noPersonal);
+                $output->stock = $this->inventario_model->consulta_stock($this->noPersonal, 'material');
                 $this->_example_output($output);
             }else
             {

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-<?php 
+<?php
 foreach($css_files as $file): ?>
 	<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 <?php endforeach; ?>
@@ -13,9 +13,11 @@ foreach($css_files as $file): ?>
 
 </style>
 </head>
-	
+
     <div>
-        <h4>Catálogo de Equipos</h4>
+    	<ul class="nav nav-pills" role="tablist">
+            <li role="presentation" class="active"><a href="catalogos/equipos/control">Equipos</a></li>
+        </ul>
 		<?php echo $output; ?>
     </div>
 

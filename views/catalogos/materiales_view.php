@@ -34,7 +34,6 @@ foreach($css_files as $file): ?>
         </ul>
         <?php
             if ($stock != NULL) {
-                //echo '<abbr title="HyperText Markup Language" class="initialism">Material en el mínimo de stock: </abbr>';
                 echo "<mark>Hay material en mínimo de stock: </mark>";
             }
             foreach ($stock as $row) {

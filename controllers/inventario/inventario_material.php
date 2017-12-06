@@ -22,7 +22,6 @@ Class Inventario_material extends CI_controller{
             $datos_plantilla['titulo'] = "Inventario Material";
             $datos_plantilla['contenido'] = $this->load->view('inventario/entrada_material.php',$output, TRUE);
             $this->load->view('plantilla_view', $datos_plantilla);
-
         }
 
         function _example_output_salida($output = null)
@@ -30,7 +29,6 @@ Class Inventario_material extends CI_controller{
             $datos_plantilla['titulo'] = "Inventario Material";
             $datos_plantilla['contenido'] = $this->load->view('inventario/salida_material.php',$output, TRUE);
             $this->load->view('plantilla_view', $datos_plantilla);
-
         }
 
         function entrada()
@@ -80,9 +78,9 @@ Class Inventario_material extends CI_controller{
                 $crud->where('movimiento','Salida');
                 $crud->where('inventario.responsable', $this->noPersonal);
                 $crud->set_table('inventario');
-                $crud->unset_columns('tipo_utensilio','responsable','movimiento','costo','factura','estado_factura','proveedor','fuente_financiamiento');
-                $crud->unset_fields('costo','factura','estado_factura','proveedor','fuente_financiamiento');
-                $crud->unset_edit_fields('material','cantidad','costo','factura','estado_factura','proveedor','fuente_financiamiento');
+                $crud->unset_columns('tipo_utensilio','responsable','movimiento','costo','factura','estado_factura','proveedor','fuente_financiamiento','numero_proyecto');
+                $crud->unset_fields('costo','factura','estado_factura','proveedor','fuente_financiamiento','numero_proyecto');
+                $crud->unset_edit_fields('material','cantidad','costo','factura','estado_factura','proveedor','fuente_financiamiento','numero_proyecto');
                 $crud->display_as('utensilio','Material');
                 $crud->set_subject('Salida de Material');
                 //$crud->required_fields('fecha','tipo_utensilio','utensilio','movimiento','cantidad','usuario');

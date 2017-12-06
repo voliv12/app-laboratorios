@@ -9,40 +9,87 @@ Class Inventario_reactivo extends CI_controller{
             $this->load->database();
             $this->load->helper('url');
             /* ------------------ */
-
             $this->load->library('grocery_CRUD');
+            $this->noPersonal = $this->session->userdata('noPersonal');
+            $this->correo = $this->session->userdata('email');
+
         }
 
         function _example_output($output = null)
         {
             $datos_plantilla['titulo'] = "Inventario Reactivo";
-            $datos_plantilla['contenido'] = $this->load->view('inventario/inventario_reactivo.php',$output, TRUE);
+            $datos_plantilla['contenido'] = $this->load->view('inventario/entrada_reactivo.php',$output, TRUE);
             $this->load->view('plantilla_view', $datos_plantilla);
         }
 
-        function control()
+        function _example_output_salida($output = null)
+        {
+            $datos_plantilla['titulo'] = "Inventario Reactivo";
+            $datos_plantilla['contenido'] = $this->load->view('inventario/salida_reactivo.php',$output, TRUE);
+            $this->load->view('plantilla_view', $datos_plantilla);
+        }
+
+        function entrada()
         {
              if ($this->session->userdata('logged_in') == TRUE)
             {
                 $crud = new grocery_CRUD();
 
                 $crud->where('tipo_utensilio','Reactivo');
+                $crud->where('movimiento','Entrada');
+                $crud->where('inventario.responsable', $this->noPersonal);
                 $crud->set_table('inventario');
-                $crud->unset_columns('tipo_utensilio');
-                $crud->display_as('utensilio','Reactivo');
-                $crud->set_subject('Movimiento');
-                $crud->required_fields('fecha','tipo_utensilio','utensilio','movimiento','cantidad','usuario');
-                //$crud->set_rules('costo','Costo','required|numeric');
-                $crud->set_relation('utensilio','reactivo','nombre');
-                $crud->set_relation('proveedor','proveedor','nombre');
-                $crud->set_relation('usuario','usuario','nombre');
 
-                $crud->callback_add_field('tipo_utensilio',array($this,'add_field'));
+                $crud->unset_columns('tipo_utensilio','responsable','movimiento','destino');
+                $crud->unset_fields('destino');
+                $crud->unset_edit_fields('cantidad','destino');
+                $crud->display_as('utensilio','Reactivo');
+                $crud->set_subject('Entrada de Reactivo');
+                $crud->required_fields('fecha','tipo_utensilio','utensilio','movimiento','cantidad','usuario');
+                $crud->field_type('tipo_utensilio', 'hidden', 'Reactivo');
+                $crud->set_relation('utensilio','reactivo','nombre', array('responsable' => $this->noPersonal));
+                $crud->field_type('movimiento', 'hidden', 'Entrada');
+                $crud->set_relation('proveedor','proveedor','nombre');
+                $crud->field_type('responsable', 'hidden', $this->noPersonal);
+                $crud->set_relation('fuente_financiamiento','fuente','Fuente');
+
+                //$crud->callback_add_field('tipo_utensilio',array($this,'add_field'));
                 $crud->callback_column('cantidad',array($this,'add_unidad'));
                 $crud->callback_insert(array($this,'realiza_operaciones'));
 
                 $output = $crud->render();
                 $this->_example_output($output);
+            }else
+            {
+                redirect('login');
+            }
+        }
+
+        function salida()
+        {
+             if ($this->session->userdata('logged_in') == TRUE)
+            {
+                $crud = new grocery_CRUD();
+                $crud->where('tipo_utensilio','Reactivo');
+                $crud->where('movimiento','Salida');
+                $crud->where('inventario.responsable', $this->noPersonal);
+                $crud->set_table('inventario');
+                $crud->unset_columns('tipo_utensilio','responsable','movimiento','costo','factura','estado_factura','proveedor','fuente_financiamiento','numero_proyecto');
+                $crud->unset_fields('costo','factura','estado_factura','proveedor','fuente_financiamiento', 'numero_proyecto');
+                $crud->unset_edit_fields('reactivo','cantidad','costo','factura','estado_factura','proveedor','fuente_financiamiento','numero_proyecto');
+                $crud->display_as('utensilio','Reactivo');
+                $crud->set_subject('Salida de Reactivo');
+                $crud->field_type('tipo_utensilio', 'hidden', 'Reactivo');
+                $crud->set_relation('utensilio','reactivo','nombre', array('responsable' => $this->noPersonal));
+                $crud->field_type('movimiento', 'hidden', 'Salida');
+                $crud->field_type('responsable', 'hidden', $this->noPersonal);
+
+                //$crud->callback_add_field('tipo_utensilio',array($this,'add_field'));
+                $crud->callback_column('cantidad',array($this,'add_unidad'));
+                $crud->callback_insert(array($this,'realiza_operaciones'));
+
+                $output = $crud->render();
+                $this->_example_output_salida($output);
             }else
             {
                 redirect('login');

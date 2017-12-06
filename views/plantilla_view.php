@@ -45,14 +45,33 @@ $(document).ready(function()
       window.history.back();
     });
 
-    //############## cuando se manejan piezas en materiales ###############
-  $("#field-unidad_de_medida").change(function () {
-    if($("#field-unidad_de_medida").val() == "Pieza"){
-      $("#contenido_por_unidad_field_box").hide();
-      $("#contenido_por_unidad").val("");
-    }else{
-      $("#contenido_por_unidad_field_box").show();
+    //########## cuando se manejan por piezas, militros, litros, etc en materiales y reactivos #############
+  if($("#field-unidad_de_medida").val() == ""){
+    $("#contenido_por_unidad_field_box").hide();
+  }
 
+  $("#field-unidad_de_medida").change(function () {
+    if($("#field-unidad_de_medida").val() == "Caja"){
+      $("#contenido_por_unidad_field_box").show();
+    }else if($("#field-unidad_de_medida").val() == "Bolsa"){
+      $("#contenido_por_unidad_field_box").show();
+    }else if($("#field-unidad_de_medida").val() == "frasco"){
+      $("#contenido_por_unidad_field_box").show();
+    }else{
+      $("#contenido_por_unidad_field_box").hide();
+      $("#field-contenido_por_unidad").val("");
+    }
+  });
+  //##### Fuente de Financiamiento
+  if($("#field-fuente_financiamiento").val() == ""){
+    $("#numero_proyecto_field_box").hide();
+  }
+  $("#field-fuente_financiamiento").change(function () {
+       if($("#field-fuente_financiamiento").val() == "1"){
+      $("#numero_proyecto_field_box").show();
+    }else{
+      $("#numero_proyecto_field_box").hide();
+      $("#field-numero_proyecto").val("");
     }
   });
 
@@ -108,16 +127,17 @@ $(document).ready(function()
                 <a class="btn btn-default" href="catalogos/materiales/control" role="button">Materiales</a>
                 <a class="btn btn-default" href="catalogos/reactivos/control" role="button">Reactivos</a>
                 <a class="btn btn-default" href="catalogos/equipos/control" role="button">Equipos</a>
+                <a class="btn btn-default" href="catalogos/proveedores/control" role="button">Preveedores</a>
 
 
-               <div class="btn-group">
+               <!--div class="btn-group">
                 <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">Catálogos <span class="caret"></span></button>
                 <ul class="dropdown-menu" align="left">
                    <li><a href="catalogos/usuarios/control">Usuarios</a></li>
                     <li><a href="catalogos/proveedores/control">Proveedores</a></li>
                 </ul>
               </div>
-              <!--div class="btn-group">
+              <div class="btn-group">
                 <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">Control equipos <span class="caret"></span></button>
                 <ul class="dropdown-menu" align="left">
                    <li class="dropdown-submenu">
@@ -138,18 +158,18 @@ $(document).ready(function()
                    <li><a href="bitacoras/ctrl_equipos/control">Equipo</a></li>
                    <li><a href="bitacoras/ctrl_aseo/control">Aseo</a></li>
                 </ul>
-              </div-->
+              </div>
               <div class="btn-group">
                 <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">Inventario <span class="caret"></span></button>
                 <ul class="dropdown-menu" align="left">
                    <li><a href="inventario/inventario_material/control">Materiales</a></li>
                    <li><a href="inventario/inventario_reactivo/control">Reactivos</a></li>
                 </ul>
-              </div>
+              </div-->
               <div class="btn-group">
                <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">Utilería <span class="caret"></span></button>
                 <ul class="dropdown-menu" align="left">
-                   <li><a href="utileria/respaldos/generar_respaldo">Realizar respaldo de la Base de Datos</a></li>
+                   <li><a href="utileria/respaldos/generar_respaldo">Respaldar Base de Datos</a></li>
 
                 </ul>
               </div>

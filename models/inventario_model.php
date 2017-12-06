@@ -9,18 +9,11 @@ class Inventario_model extends CI_Model
         $this->load->database();
     }
 
-    function consulta_stock($noPersonal)
+    function consulta_stock($noPersonal, $tabla)
     {
-        $sql = "SELECT `nombre`,`total_stock`,`minimo_stock` FROM `material` WHERE `total_stock`<=`minimo_stock` AND `responsable`=".$noPersonal;
+        $sql = "SELECT `nombre`,`total_stock`,`minimo_stock` FROM `".$tabla."` WHERE `total_stock`<=`minimo_stock` AND `responsable`=".$noPersonal;
         $query = $this->db->query($sql);
-        /*$this->db->select('nombre, total_stock, minimo_stock');
-        $this->db->from('material');
-        //$this->db->join('usuario','material.responsable = usuario.noPersonal');
-        $this->db->where('total_stock','minimo_stock');
-        $this->db->where('responsable', $noPersonal);
-        $query = $this->db->get();*/
 
-        //return $query->result_array();
         return $query->result_array();
     }
 

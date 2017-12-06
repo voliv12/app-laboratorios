@@ -16,7 +16,10 @@ foreach($css_files as $file): ?>
 
     <div>
     	<ul class="nav nav-pills" role="tablist">
-            <li role="presentation" class="active"><a href="catalogos/proveedores/control">Proveedores</a></li>
+            <li role="presentation"><a href="catalogos/reactivos/control">Mis Reactivos</a></li>
+            <li role="presentation"><a href="inventario/inventario_reactivo/entrada">Entrada de Reactivo</a></li>
+            <li role="presentation"><a href="inventario/inventario_reactivo/salida">Salida de Reactivo</a></li>
+            <li role="presentation" class="active"><a href="catalogos/reactivos/listar_reactivos">Todos los Reactivos</a></li>
         </ul>
 
 		<?php echo $output; ?>
