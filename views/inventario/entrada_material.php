@@ -28,7 +28,7 @@ foreach($css_files as $file): ?>
             <li role="presentation"><a href="catalogos/materiales/control">Mis Materiales</a></li>
             <li role="presentation" class="active"><a href="inventario/inventario_material/entrada">Entrada de Material</a></li>
             <li role="presentation"><a href="inventario/inventario_material/salida">Salida de Material</a></li>
-            <li role="presentation"><a href="catalogos/materiales/listar_materiales">Todos los Materiales</a></li>
+            <!--li role="presentation"><a href="catalogos/materiales/listar_materiales">Todos los Materiales</a></li-->
         </ul>
 
 		<?php echo $output; ?>
